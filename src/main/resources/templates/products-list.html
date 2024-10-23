@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Product List</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<h1>Product List</h1>
+
+<div class="filter-section">
+  <form action="#" th:action="@{/products/filter}" method="get">
+    <label for="category">Category:</label>
+    <input type="number" id="category" name="categoryId" placeholder="Enter category ID" />
+
+    <label for="minPrice">Min Price:</label>
+    <input type="number" id="minPrice" name="minPrice" placeholder="Min Price" />
+
+    <label for="maxPrice">Max Price:</label>
+    <input type="number" id="maxPrice" name="maxPrice" placeholder="Max Price" />
+
+    <button type="submit">Filter</button>
+  </form>
+</div>
+
+<div class="product-list">
+  <div th:each="product : ${products.content}" class="product-card">
+    <img th:src="${product.imageUrl}" alt="Product Image" />
+    <h3 th:text="${product.title}">Product Title</h3>
+    <p>Category: <span th:text="${product.category.title}">Category Name</span></p>
+    <p>Price: $<span th:text="${product.price}">0.00</span></p>
+    <a th:href="@{/products/{id}(id=${product.id})}" class="btn">View Details</a>
+  </div>
+</div>
+
+<div class="pagination">
+  <a th:if="${products.hasPrevious()}" th:href="@{/products(page=${products.number - 1}, size=${products.size})}">Previous</a>
+  <span th:text="${products.number + 1}">1</span>
+  <a th:if="${products.hasNext()}" th:href="@{/products(page=${products.number + 1}, size=${products.size})}">Next</a>
+</div>
+</body>
+</html>
