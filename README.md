@@ -1,7 +1,3 @@
-Ось версія README українською для вашого проєкту **products-spring-data-demo**:
-
----
-
 # Products Spring Data Demo
 
 ## Опис проєкту
